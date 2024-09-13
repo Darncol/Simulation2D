@@ -18,6 +18,6 @@ public class Predator extends Creature {
     }
 
     boolean eateble(Entity food) {
-        return food instanceof Herbivore;
+        return food instanceof Herbivore herbivore && herbivore.isDead();
     }
 }

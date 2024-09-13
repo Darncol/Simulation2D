@@ -24,6 +24,6 @@ public class Herbivore extends Creature {
     }
 
     boolean eateble(Entity food) {
-        return food instanceof Grass;
+        return food.isConsumable;
     }
 }
