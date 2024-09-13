@@ -12,6 +12,10 @@ public abstract class Creature extends Entity {
         this.maxHealth = maxHealth;
     }
 
+    abstract boolean eateble(Entity food);
+
+    abstract void makeMove();
+
     void takeDamage(int damage) {
         if (currentHealth > damage) {
             currentHealth -= damage;
@@ -22,11 +26,18 @@ public abstract class Creature extends Entity {
         return currentHealth <= 0;
     }
 
-    abstract boolean eat(Entity food);
+    boolean eat(Entity food) {
+        boolean isEaten = false;
 
-    abstract void makeMove();
+        if (eateble(food)) {
+            restoreHealth();
+            isEaten = true;
+        }
 
-    protected final void restoreHealth() {
+        return isEaten;
+    }
+
+    final void restoreHealth() {
         currentHealth = maxHealth;
     }
 }

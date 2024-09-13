@@ -1,6 +1,6 @@
 package Entities;
 
-public class Predator extends Creature{
+public class Predator extends Creature {
     private final int damage;
 
     public Predator(String name, int maxHP, int damage, int movementSpeed) {
@@ -8,20 +8,8 @@ public class Predator extends Creature{
         this.damage = damage;
     }
 
-    int attack(){
+    int attack() {
         return damage;
-    }
-
-    @Override
-    boolean eat(Entity food) {
-        boolean isEaten = false;
-
-        if(isEateble(food)){
-            restoreHealth();
-            isEaten = true;
-        }
-
-        return isEaten;
     }
 
     @Override
@@ -29,7 +17,7 @@ public class Predator extends Creature{
 
     }
 
-    private boolean isEateble(Entity food){
-        return food.isAlive;
+    boolean eateble(Entity food) {
+        return food instanceof Herbivore;
     }
 }
