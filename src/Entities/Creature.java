@@ -37,7 +37,7 @@ public abstract class Creature extends Entity {
         return isEaten;
     }
 
-    final void restoreHealth() {
+    void restoreHealth() {
         currentHealth = maxHealth;
     }
 }
