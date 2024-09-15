@@ -1,12 +1,31 @@
+package navigation;
+
 import java.util.Objects;
 
 public class Coordinate {
-    Integer row;
-    Integer column;
+    private Integer row;
+    private Integer column;
 
     public Coordinate(Integer row, Integer column) {
         this.row = row;
         this.column = column;
+    }
+
+    void changePosition(movementDirection direction) {
+        switch (direction) {
+            case UP:
+                column++;
+                break;
+            case DOWN:
+                column--;
+                break;
+            case LEFT:
+                row--;
+                break;
+            case RIGHT:
+                row++;
+                break;
+        }
     }
 
     @Override

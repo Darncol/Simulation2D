@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 public abstract class Creature extends Entity {
     private int currentHealth;

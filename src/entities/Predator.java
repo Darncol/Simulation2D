@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 public class Predator extends Creature {
     private final int damage;
