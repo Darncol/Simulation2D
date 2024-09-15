@@ -5,8 +5,8 @@ public abstract class Creature extends Entity {
     final int maxHealth;
     final int movementSpeed;
 
-    public Creature(String name, int maxHealth, int movementSpeed) {
-        super(name, true);
+    public Creature(String name, int maxHealth, int movementSpeed, int row, int col) {
+        super(name, true, row, col);
         this.movementSpeed = movementSpeed;
         this.currentHealth = maxHealth;
         this.maxHealth = maxHealth;

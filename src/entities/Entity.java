@@ -3,10 +3,10 @@ package entities;
 import navigation.Coordinate;
 
 public abstract class Entity {
-    final String name;
+    public final String name;
     final boolean isConsumable;
 
-    Coordinate coordinates;
+    public Coordinate coordinates;
 
     public Entity(String name, boolean isConsumable, int row, int col) {
         this.name = name;

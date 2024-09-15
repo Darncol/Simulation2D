@@ -3,10 +3,10 @@ package navigation;
 import java.util.Objects;
 
 public class Coordinate {
-    private Integer row;
-    private Integer column;
+    private int row;
+    private int column;
 
-    public Coordinate(Integer row, Integer column) {
+    public Coordinate(int row, int column) {
         this.row = row;
         this.column = column;
     }
@@ -26,6 +26,14 @@ public class Coordinate {
                 row++;
                 break;
         }
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
     }
 
     @Override

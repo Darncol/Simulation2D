@@ -2,8 +2,8 @@ package entities;
 
 public class Herbivore extends Creature {
 
-    public Herbivore(String name, int maxHP, int movementSpeed) {
-        super(name, maxHP, movementSpeed);
+    public Herbivore(String name, int maxHP, int movementSpeed, int row, int col) {
+        super(name, maxHP, movementSpeed, row, col);
     }
 
     @Override
