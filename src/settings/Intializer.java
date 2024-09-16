@@ -1,3 +1,5 @@
+package settings;
+
 import entities.Herbivore;
 import entities.Predator;
 

@@ -1,30 +1,33 @@
 package navigation;
 
 import entities.Entity;
+import settings.IMapSize;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameMap {
+public class GameMapRenderer implements IMapSize {
     private Map<Coordinate, Entity> entityLocations = new HashMap<>();
-    private final int mapWidth = 30;
-    private final int mapHeight = 10;
 
     public void displayMap() {
         String[][] map = createMap();
         setEntitesOnMap(map);
         renderMap(map);
+        entityLocations.clear();
     }
 
-    public void addEntity(Entity entity) {
-        entityLocations.put(entity.coordinates, entity);
+    public void addEntites(ArrayList<Entity> entities) {
+        for (Entity entity : entities) {
+            entityLocations.put(entity.coordinates, entity);
+        }
     }
 
     private String[][] createMap() {
-        String[][] map = new String[mapHeight][mapWidth];
+        String[][] map = new String[MAP_HEIGHT][MAP_WIDTH];
 
-        for (int col = 0; col < mapHeight; col++) {
-            for (int row = 0; row < mapWidth; row++) {
+        for (int col = 0; col < MAP_HEIGHT; col++) {
+            for (int row = 0; row < MAP_WIDTH; row++) {
                 map[col][row] = ".";
             }
         }
@@ -33,8 +36,8 @@ public class GameMap {
     }
 
     private void setEntitesOnMap(String[][] map) {
-        for (int col = 0; col < mapHeight; col++) {
-            for (int row = 0; row < mapWidth; row++) {
+        for (int col = 0; col < MAP_HEIGHT; col++) {
+            for (int row = 0; row < MAP_WIDTH; row++) {
                 Coordinate coordinate = new Coordinate(col, row);
 
                 if (entityLocations.containsKey(coordinate)) {
@@ -45,8 +48,8 @@ public class GameMap {
     }
 
     private void renderMap(String[][] map) {
-        for (int col = 0; col < mapHeight; col++) {
-            for (int row = 0; row < mapWidth; row++) {
+        for (int col = 0; col < MAP_HEIGHT; col++) {
+            for (int row = 0; row < MAP_WIDTH; row++) {
                 System.out.print(map[col][row]);
             }
             System.out.println();

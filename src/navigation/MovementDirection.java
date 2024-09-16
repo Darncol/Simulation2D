@@ -1,5 +1,5 @@
 package navigation;
 
-public enum movementDirection {
+public enum MovementDirection {
     UP, DOWN, LEFT, RIGHT,
 }

@@ -1,29 +1,40 @@
 package navigation;
 
+import settings.IMapSize;
+
 import java.util.Objects;
 
-public class Coordinate {
+public class Coordinate implements IMapSize {
     private int row;
     private int column;
+
 
     public Coordinate(int row, int column) {
         this.row = row;
         this.column = column;
     }
 
-    void changePosition(movementDirection direction) {
+    void changePosition(MovementDirection direction) {
         switch (direction) {
             case UP:
-                column++;
+                if (row > 0) {
+                    row--;
+                }
                 break;
             case DOWN:
-                column--;
+                if (row < MAP_HEIGHT) {
+                    row++;
+                }
                 break;
             case LEFT:
-                row--;
+                if (column > 0) {
+                    column--;
+                }
                 break;
             case RIGHT:
-                row++;
+                if (column < MAP_WIDTH) {
+                    column++;
+                }
                 break;
         }
     }
