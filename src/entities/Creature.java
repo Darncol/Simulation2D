@@ -17,12 +17,12 @@ public abstract class Creature extends Entity {
         this.maxHealth = maxHealth;
     }
 
-    abstract boolean eateble(Entity food);
+    abstract boolean isEdible(Entity food);
 
     public abstract void makeMove(ArrayList<Entity> entities, MovementDirection direction);
 
     public void takeDamage(int damage) {
-        if (currentHealth > damage) {
+        if (currentHealth > 0) {
             currentHealth -= damage;
         }
     }
@@ -34,7 +34,7 @@ public abstract class Creature extends Entity {
     public boolean eat(Entity food) {
         boolean isEaten = false;
 
-        if (eateble(food)) {
+        if (isEdible(food)) {
             restoreHealth();
             isEaten = true;
         }
@@ -44,5 +44,13 @@ public abstract class Creature extends Entity {
 
     void restoreHealth() {
         currentHealth = maxHealth;
+    }
+
+    boolean checkCollision(ArrayList<Entity> entities, Coordinate newCoordinates) {
+        return entities.stream().anyMatch(entity -> entity.coordinates.equals(newCoordinates));
+    }
+
+    Entity getEntityByCoordinates(ArrayList<Entity> entities, Coordinate newCoordinates) {
+        return entities.stream().filter(entity -> entity.coordinates.equals(newCoordinates)).findFirst().orElse(null);
     }
 }

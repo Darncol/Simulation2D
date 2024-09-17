@@ -11,8 +11,8 @@ public class Herbivore extends Creature {
         super(name, maxHP, movementSpeed, row, col);
     }
 
-    boolean eateble(Entity food) {
-        return food.isConsumable;
+    boolean isEdible(Entity food) {
+        return food instanceof StaticObject && food.isConsumable;
     }
 
     @Override
@@ -20,25 +20,12 @@ public class Herbivore extends Creature {
         Coordinate newCoordinates = coordinates.calculateNewCoordinate(direction);
         Entity entity = getEntityByCoordinates(entities, newCoordinates);
 
-        if (!checkCollision(entities, newCoordinates) || checkIsEatableEntity(entity)) {
+        if (!checkCollision(entities, newCoordinates) || isEdible(entity)) {
             coordinates.changePosition(direction);
 
-            if (checkIsEatableEntity(entity)) {
-                eat(entity);
+            if (eat(entity)) {
                 entities.remove(entity);
             }
         }
-    }
-
-    private boolean checkCollision(ArrayList<Entity> entities, Coordinate newCoordinates) {
-        return entities.stream().anyMatch(entity -> entity.coordinates.equals(newCoordinates));
-    }
-
-    private Entity getEntityByCoordinates(ArrayList<Entity> entities, Coordinate newCoordinates) {
-        return entities.stream().filter(entity -> entity.coordinates.equals(newCoordinates)).findFirst().orElse(null);
-    }
-
-    private boolean checkIsEatableEntity(Entity entity) {
-        return entity instanceof StaticObject && entity.isConsumable;
     }
 }
