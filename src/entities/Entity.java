@@ -4,7 +4,7 @@ import navigation.Coordinate;
 
 public abstract class Entity {
     public final String name;
-    final boolean isConsumable;
+    public final boolean isConsumable;
 
     public Coordinate coordinates;
 

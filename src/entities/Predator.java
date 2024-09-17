@@ -1,5 +1,9 @@
 package entities;
 
+import navigation.MovementDirection;
+
+import java.util.ArrayList;
+
 public class Predator extends Creature {
     private final int damage;
 
@@ -12,12 +16,12 @@ public class Predator extends Creature {
         return damage;
     }
 
-    @Override
-    void makeMove() {
-
-    }
-
     boolean eateble(Entity food) {
         return food instanceof Herbivore herbivore && herbivore.isDead();
+    }
+
+    @Override
+    public void makeMove(ArrayList<Entity> entities, MovementDirection direction) {
+
     }
 }

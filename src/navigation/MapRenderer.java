@@ -7,17 +7,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameMapRenderer implements IMapSize {
-    private Map<Coordinate, Entity> entityLocations = new HashMap<>();
+public class MapRenderer implements IMapSize {
+    private final Map<Coordinate, Entity> entityLocations = new HashMap<>();
 
-    public void displayMap() {
+    public void displayMap(ArrayList<Entity> entities) {
+        entityLocations.clear();
+
+        addEntites(entities);
         String[][] map = createMap();
         setEntitesOnMap(map);
         renderMap(map);
-        entityLocations.clear();
     }
 
-    public void addEntites(ArrayList<Entity> entities) {
+    private void addEntites(ArrayList<Entity> entities) {
         for (Entity entity : entities) {
             entityLocations.put(entity.coordinates, entity);
         }
@@ -49,10 +51,13 @@ public class GameMapRenderer implements IMapSize {
 
     private void renderMap(String[][] map) {
         for (int col = 0; col < MAP_HEIGHT; col++) {
+            StringBuilder line = new StringBuilder();
+
             for (int row = 0; row < MAP_WIDTH; row++) {
-                System.out.print(map[col][row]);
+                line.append(map[col][row]);
             }
-            System.out.println();
+
+            System.out.println(line.toString());
         }
     }
 }

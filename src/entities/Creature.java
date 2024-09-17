@@ -1,5 +1,10 @@
 package entities;
 
+import navigation.Coordinate;
+import navigation.MovementDirection;
+
+import java.util.ArrayList;
+
 public abstract class Creature extends Entity {
     private int currentHealth;
     final int maxHealth;
@@ -14,9 +19,9 @@ public abstract class Creature extends Entity {
 
     abstract boolean eateble(Entity food);
 
-    abstract void makeMove();
+    public abstract void makeMove(ArrayList<Entity> entities, MovementDirection direction);
 
-    void takeDamage(int damage) {
+    public void takeDamage(int damage) {
         if (currentHealth > damage) {
             currentHealth -= damage;
         }
@@ -26,7 +31,7 @@ public abstract class Creature extends Entity {
         return currentHealth <= 0;
     }
 
-    boolean eat(Entity food) {
+    public boolean eat(Entity food) {
         boolean isEaten = false;
 
         if (eateble(food)) {

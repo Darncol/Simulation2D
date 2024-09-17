@@ -14,7 +14,37 @@ public class Coordinate implements IMapSize {
         this.column = column;
     }
 
-    void changePosition(MovementDirection direction) {
+    public Coordinate calculateNewCoordinate(MovementDirection direction) {
+        int newRow = row;
+        int newColumn = column;
+
+        switch (direction) {
+            case UP:
+                if (row > 0) {
+                    newRow = row - 1;
+                }
+                break;
+            case DOWN:
+                if (row < MAP_HEIGHT) {
+                    newRow = row + 1;
+                }
+                break;
+            case LEFT:
+                if (column > 0) {
+                    newColumn = column - 1;
+                }
+                break;
+            case RIGHT:
+                if (column < MAP_WIDTH) {
+                    newColumn = column + 1;
+                }
+                break;
+        }
+
+        return new Coordinate(newRow, newColumn);
+    }
+
+    public void changePosition(MovementDirection direction) {
         switch (direction) {
             case UP:
                 if (row > 0) {
