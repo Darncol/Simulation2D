@@ -20,7 +20,7 @@ public class Herbivore extends Creature {
         Coordinate newCoordinates = coordinates.calculateNewCoordinate(direction);
         Entity entity = getEntityByCoordinates(entities, newCoordinates);
 
-        if (!checkCollision(entities, newCoordinates) || isEdible(entity)) {
+        if (!hasCollision(entities, newCoordinates) || isEdible(entity)) {
             coordinates.changePosition(direction);
 
             if (eat(entity)) {

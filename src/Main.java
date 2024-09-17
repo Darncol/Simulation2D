@@ -5,13 +5,13 @@ import entities.StaticObject;
 import navigation.MapRenderer;
 import navigation.MovementDirection;
 import simulation.World;
-import settings.InitEntity;
+import settings.EntityFactory;
 
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        InitEntity init = new InitEntity();
+        EntityFactory init = new EntityFactory();
         MapRenderer renderer = new MapRenderer();
         World map = new World();
         ArrayList<Entity> entities = new ArrayList<>();

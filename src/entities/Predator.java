@@ -30,7 +30,7 @@ public class Predator extends Creature {
             herbivore.takeDamage(calculateDamage());
         }
 
-        if (!checkCollision(entities, newCoordinates) || isEdible(entity)) {
+        if (!hasCollision(entities, newCoordinates) || isEdible(entity)) {
             coordinates.changePosition(direction);
 
             if (eat(entity)) {

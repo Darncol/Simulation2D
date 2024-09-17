@@ -4,7 +4,7 @@ import entities.Herbivore;
 import entities.Predator;
 import entities.StaticObject;
 
-public class InitEntity {
+public class EntityFactory {
     public Predator wolf(int row, int col) {
         return new Predator("w", 10, 3, 2, row, col);
     }

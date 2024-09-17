@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * MapRenderer is responsible for rendering a map of entities. It uses a 2D array to represent the
+ * map grid and places entities on this grid based on their coordinates. The map is then
+ * rendered to the console.
+ */
 public class MapRenderer implements IMapSize {
     private final Map<Coordinate, Entity> entityLocations = new HashMap<>();
 

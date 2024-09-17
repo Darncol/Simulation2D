@@ -69,14 +69,6 @@ public class Coordinate implements IMapSize {
         }
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;

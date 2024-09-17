@@ -5,6 +5,11 @@ import navigation.MovementDirection;
 
 import java.util.ArrayList;
 
+/**
+ * The Creature class represents an abstract entity with health and movement capabilities within the game.
+ * Creatures can move, take damage, restore health, and interact with other entities.
+ * The isEdible method needs to manage what food can be eaten.
+ */
 public abstract class Creature extends Entity {
     private int currentHealth;
     final int maxHealth;
@@ -46,7 +51,7 @@ public abstract class Creature extends Entity {
         currentHealth = maxHealth;
     }
 
-    boolean checkCollision(ArrayList<Entity> entities, Coordinate newCoordinates) {
+    boolean hasCollision(ArrayList<Entity> entities, Coordinate newCoordinates) {
         return entities.stream().anyMatch(entity -> entity.coordinates.equals(newCoordinates));
     }
 
