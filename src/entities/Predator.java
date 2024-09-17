@@ -1,10 +1,5 @@
 package entities;
 
-import navigation.Coordinate;
-import navigation.MovementDirection;
-
-import java.util.ArrayList;
-
 public class Predator extends Creature {
     private final int damage;
 
