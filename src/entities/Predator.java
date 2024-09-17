@@ -21,21 +21,9 @@ public class Predator extends Creature {
         return food instanceof Herbivore herbivore && herbivore.isDead();
     }
 
-    @Override
-    public void makeMove(ArrayList<Entity> entities, MovementDirection direction) {
-        Coordinate newCoordinates = coordinates.calculateNewCoordinate(direction);
-        Entity entity = getEntityByCoordinates(entities, newCoordinates);
-
+    void interactWithEntity(Entity entity) {
         if (entity instanceof Herbivore herbivore && !herbivore.isDead()) {
             herbivore.takeDamage(calculateDamage());
-        }
-
-        if (!hasCollision(entities, newCoordinates) || isEdible(entity)) {
-            coordinates.changePosition(direction);
-
-            if (eat(entity)) {
-                entities.remove(entity);
-            }
         }
     }
 }

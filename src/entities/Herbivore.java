@@ -16,16 +16,7 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    public void makeMove(ArrayList<Entity> entities, MovementDirection direction) {
-        Coordinate newCoordinates = coordinates.calculateNewCoordinate(direction);
-        Entity entity = getEntityByCoordinates(entities, newCoordinates);
+    void interactWithEntity(Entity entity) {
 
-        if (!hasCollision(entities, newCoordinates) || isEdible(entity)) {
-            coordinates.changePosition(direction);
-
-            if (eat(entity)) {
-                entities.remove(entity);
-            }
-        }
     }
 }
