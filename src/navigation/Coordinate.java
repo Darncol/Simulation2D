@@ -2,6 +2,7 @@ package navigation;
 
 import settings.IMapSize;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Coordinate implements IMapSize {
@@ -12,6 +13,14 @@ public class Coordinate implements IMapSize {
     public Coordinate(int row, int column) {
         this.row = row;
         this.column = column;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
     }
 
     public Coordinate calculateNewCoordinate(MovementDirection direction) {
@@ -69,6 +78,13 @@ public class Coordinate implements IMapSize {
         }
     }
 
+    public void changePosition(Coordinate toCoordinate) {
+        if (isInMapRange(toCoordinate) && isInNeighbourhood(toCoordinate)) {
+            row = toCoordinate.getRow();
+            column = toCoordinate.getColumn();
+        }
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
@@ -82,5 +98,21 @@ public class Coordinate implements IMapSize {
     @Override
     public int hashCode() {
         return Objects.hash(row, column);
+    }
+
+    private boolean isInMapRange(Coordinate coordinate) {
+        return coordinate.getRow() >= 0 && coordinate.getRow() < MAP_HEIGHT &&
+                coordinate.getColumn() >= 0 && coordinate.getColumn() < MAP_WIDTH;
+    }
+
+    private boolean isInNeighbourhood(Coordinate coordinate) {
+        Coordinate[] neighbourhood = new Coordinate[4];
+
+        neighbourhood[0] = calculateNewCoordinate(MovementDirection.UP);
+        neighbourhood[1] = calculateNewCoordinate(MovementDirection.DOWN);
+        neighbourhood[2] = calculateNewCoordinate(MovementDirection.LEFT);
+        neighbourhood[3] = calculateNewCoordinate(MovementDirection.RIGHT);
+
+        return Arrays.stream(neighbourhood).anyMatch(to -> to.equals(coordinate));
     }
 }

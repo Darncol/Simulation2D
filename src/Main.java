@@ -2,12 +2,15 @@ import entities.Entity;
 import entities.Herbivore;
 import entities.Predator;
 import entities.StaticObject;
+import navigation.BFSPathFinder;
+import navigation.Coordinate;
 import navigation.MapRenderer;
 import navigation.MovementDirection;
 import simulation.World;
 import settings.EntityFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,13 +19,12 @@ public class Main {
         World map = new World();
         ArrayList<Entity> entities = new ArrayList<>();
 
-        Herbivore rabbit1 = init.rabbit(1,1);
-        Herbivore rabbit2 = init.rabbit(5,11);
-        Herbivore rabbit3 = init.rabbit(0,1);
-        StaticObject grass = init.grass(5,12);
-        Predator wolf = init.wolf(0,0);
-        StaticObject stone = init.stone(0,2);
-
+        Herbivore rabbit1 = init.rabbit(5, 7);
+        Herbivore rabbit2 = init.rabbit(5, 11);
+        Herbivore rabbit3 = init.rabbit(0, 1);
+        StaticObject grass = init.grass(5, 12);
+        Predator wolf = init.wolf(8, 19);
+        StaticObject stone = init.stone(0, 2);
 
         entities.add(rabbit1);
         entities.add(rabbit2);
@@ -34,19 +36,25 @@ public class Main {
         renderer.displayMap(entities);
         System.out.println();
 
-        rabbit1.makeMove(entities, MovementDirection.UP);
-        rabbit2.makeMove(entities, MovementDirection.RIGHT);
-        wolf.makeMove(entities, MovementDirection.RIGHT);
-        renderer.displayMap(entities);
-        System.out.println();
+        BFSPathFinder bfs = new BFSPathFinder();
+        boolean[][] obstacles = createObstacles(entities, wolf,rabbit2);
+        List<Coordinate> path = bfs.findPath(wolf.coordinates, rabbit2.coordinates, obstacles);
 
-        wolf.makeMove(entities, MovementDirection.RIGHT);
-        rabbit1.makeMove(entities, MovementDirection.RIGHT);
-        rabbit2.makeMove(entities, MovementDirection.UP);
-        renderer.displayMap(entities);
+        for (Coordinate coordinate : path) {
+            System.out.println(coordinate.getRow() + " " + coordinate.getColumn());
+        }
+    }
 
-        System.out.println();
-        wolf.makeMove(entities, MovementDirection.RIGHT);
-        renderer.displayMap(entities);
+    static boolean[][] createObstacles(ArrayList<Entity> entities, Entity whoMove, Entity victim) {
+        boolean[][] obstacles = new boolean[10][30];
+
+        for (Entity entity : entities) {
+            if (entity.coordinates == whoMove.coordinates || entity.coordinates == victim.coordinates) {
+                continue;
+            }
+            obstacles[entity.coordinates.getRow()][entity.coordinates.getColumn()] = true;
+        }
+
+        return obstacles;
     }
 }
