@@ -19,7 +19,7 @@ public class StartUpInitializer implements IEntitiesCount, IMapSize {
         this.entityFactory = new EntityFactory();
     }
 
-    public ArrayList<Entity> initialize() {
+    public ArrayList<Entity> populateMapWithEntities() {
         generateAllAvailableCoordinates();
         generateEntities(RABBITS_COUNT, EntityFactory.EntityType.RABBIT);
         generateEntities(WOLFS_COUNT, EntityFactory.EntityType.WOLF);
