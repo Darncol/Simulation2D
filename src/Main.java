@@ -23,7 +23,7 @@ public class Main {
         Herbivore rabbit2 = init.rabbit(5, 11);
         Herbivore rabbit3 = init.rabbit(0, 1);
         StaticObject grass = init.grass(5, 12);
-        Predator wolf = init.wolf(8, 19);
+        Predator wolf = init.wolf(3, 6);
         StaticObject stone = init.stone(0, 2);
 
         entities.add(rabbit1);
@@ -37,24 +37,16 @@ public class Main {
         System.out.println();
 
         BFSPathFinder bfs = new BFSPathFinder();
-        boolean[][] obstacles = createObstacles(entities, wolf,rabbit2);
-        List<Coordinate> path = bfs.findPath(wolf.coordinates, rabbit2.coordinates, obstacles);
+
+        List<Coordinate> goals = new ArrayList<>();
+        goals.add(rabbit2.coordinates);
+        goals.add(rabbit1.coordinates);
+        goals.add(rabbit1.coordinates);
+
+        List<Coordinate> path = bfs.findPath(wolf.coordinates, goals, entities);
 
         for (Coordinate coordinate : path) {
             System.out.println(coordinate.getRow() + " " + coordinate.getColumn());
         }
-    }
-
-    static boolean[][] createObstacles(ArrayList<Entity> entities, Entity whoMove, Entity victim) {
-        boolean[][] obstacles = new boolean[10][30];
-
-        for (Entity entity : entities) {
-            if (entity.coordinates == whoMove.coordinates || entity.coordinates == victim.coordinates) {
-                continue;
-            }
-            obstacles[entity.coordinates.getRow()][entity.coordinates.getColumn()] = true;
-        }
-
-        return obstacles;
     }
 }

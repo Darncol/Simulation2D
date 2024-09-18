@@ -1,6 +1,8 @@
 package navigation;
 
 import java.util.*;
+
+import entities.Entity;
 import settings.IMapSize;
 
 public class BFSPathFinder implements IMapSize {
@@ -12,16 +14,17 @@ public class BFSPathFinder implements IMapSize {
         parent = new Coordinate[MAP_HEIGHT][MAP_WIDTH];
     }
 
-    public List<Coordinate> findPath(Coordinate start, Coordinate goal, boolean[][] obstacles) {
+    public List<Coordinate> findPath(Coordinate start, List<Coordinate> goals, ArrayList<Entity> entities) {
         Queue<Coordinate> queue = new LinkedList<>();
+        boolean[][] obstacles = generateObstacleMap(start, goals, entities);
         queue.offer(start);
         visited[start.getRow()][start.getColumn()] = true;
 
         while (!queue.isEmpty()) {
             Coordinate current = queue.poll();
 
-            if (current.equals(goal)) {
-                return reconstructPath(start, goal);
+            if (goals.contains(current)) {
+                return reconstructPath(start, current);
             }
 
             for (MovementDirection direction : MovementDirection.values()) {
@@ -56,5 +59,18 @@ public class BFSPathFinder implements IMapSize {
         Collections.reverse(path);
 
         return path;
+    }
+
+    private boolean[][] generateObstacleMap(Coordinate start, List<Coordinate> goals, ArrayList<Entity> entities) {
+        boolean[][] obstacles = new boolean[10][30];
+
+        for (Entity entity : entities) {
+            if (entity.coordinates == start || goals.contains(entity.coordinates)) {
+                continue;
+            }
+            obstacles[entity.coordinates.getRow()][entity.coordinates.getColumn()] = true;
+        }
+
+        return obstacles;
     }
 }
