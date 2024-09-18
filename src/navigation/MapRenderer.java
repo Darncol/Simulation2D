@@ -2,6 +2,7 @@ package navigation;
 
 import entities.Entity;
 import settings.IMapSize;
+import settings.IMapSymbols;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.Map;
  * map grid and places entities on this grid based on their coordinates. The map is then
  * rendered to the console.
  */
-public class MapRenderer implements IMapSize {
+public class MapRenderer implements IMapSize, IMapSymbols {
     private final Map<Coordinate, Entity> entityLocations = new HashMap<>();
 
     public void displayMap(ArrayList<Entity> entities) {
@@ -35,7 +36,7 @@ public class MapRenderer implements IMapSize {
 
         for (int col = 0; col < MAP_HEIGHT; col++) {
             for (int row = 0; row < MAP_WIDTH; row++) {
-                map[col][row] = ".";
+                map[col][row] = GROUND;
             }
         }
 
