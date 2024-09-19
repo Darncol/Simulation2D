@@ -60,7 +60,7 @@ public class World implements IGameSpeed {
         if (path != null && !path.isEmpty()) {
             for (int i = 0; i < creature.movementSpeed; i++) {
                 if (!path.isEmpty()) {
-                    creature.makeMove(entities, path.remove(0));
+                    creature.makeMove(entities, path.removeFirst());
                     gameSleep();
                     gameMap.displayMap(entities);
                 }
@@ -73,14 +73,6 @@ public class World implements IGameSpeed {
             isRunning = false;
             System.out.println("Simulation over!");
         }
-    }
-
-    private ArrayList<Coordinate> collectPredators() {
-        return entities.stream()
-                .filter(e -> e.getClass() == Predator.class)
-                .map(e -> e.coordinates)
-                .collect(Collectors.toCollection(ArrayList::new));
-
     }
 
     private ArrayList<Coordinate> collectHerbivores() {
@@ -102,7 +94,7 @@ public class World implements IGameSpeed {
         try {
             Thread.sleep(TIMER); // Пауза на 1 секунду
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }

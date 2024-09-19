@@ -59,31 +59,6 @@ public class Coordinate implements IMapSize {
         return new Coordinate(newRow, newColumn);
     }
 
-    public void changePosition(MovementDirection direction) {
-        switch (direction) {
-            case UP:
-                if (row > 0) {
-                    row--;
-                }
-                break;
-            case DOWN:
-                if (row < MAP_HEIGHT) {
-                    row++;
-                }
-                break;
-            case LEFT:
-                if (column > 0) {
-                    column--;
-                }
-                break;
-            case RIGHT:
-                if (column < MAP_WIDTH) {
-                    column++;
-                }
-                break;
-        }
-    }
-
     public void changePosition(Coordinate toCoordinate) {
         if (isInMapRange(toCoordinate) && isInNeighbourhood(toCoordinate)) {
             row = toCoordinate.getRow();
@@ -119,6 +94,6 @@ public class Coordinate implements IMapSize {
         neighbourhood[2] = calculateNewCoordinate(MovementDirection.LEFT);
         neighbourhood[3] = calculateNewCoordinate(MovementDirection.RIGHT);
 
-        return Arrays.stream(neighbourhood).anyMatch(to -> to.equals(coordinate));
+        return Arrays.asList(neighbourhood).contains(coordinate);
     }
 }

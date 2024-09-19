@@ -17,7 +17,6 @@ public class EntityFactory implements IMapSymbols, IEntityKind {
             case WOLF -> new Predator(WOLF, 10, 3, 2, coordinates.getRow(), coordinates.getColumn());
             case STONE -> new StaticObject(STONE, false, coordinates.getRow(), coordinates.getColumn());
             case GRASS -> new StaticObject(GRASS, true, coordinates.getRow(), coordinates.getColumn());
-            default -> throw new IllegalArgumentException("Unknown entity kind: " + kind);
         };
     }
 }

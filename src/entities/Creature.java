@@ -1,7 +1,6 @@
 package entities;
 
 import navigation.Coordinate;
-import navigation.MovementDirection;
 
 import java.util.ArrayList;
 

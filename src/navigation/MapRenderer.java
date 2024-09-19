@@ -64,7 +64,7 @@ public class MapRenderer implements IMapSize, IMapSymbols, IFreeSpace {
                 line.append(map[col][row]);
             }
 
-            System.out.println(line.toString());
+            System.out.println(line);
         }
     }
 
