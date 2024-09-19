@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public abstract class Creature extends Entity {
     private int currentHealth;
     final int maxHealth;
-    final int movementSpeed;
+    public final int movementSpeed;
 
     public Creature(String name, int maxHealth, int movementSpeed, int row, int col) {
         super(name, true, row, col);
@@ -25,16 +25,15 @@ public abstract class Creature extends Entity {
 
     abstract void interactWithEntity(Entity entity);
 
-    public void makeMove(ArrayList<Entity> entities, MovementDirection direction) {
-        Coordinate newCoordinates = coordinates.calculateNewCoordinate(direction);
-        Entity entity = getEntityByCoordinates(entities, newCoordinates);
+    public void makeMove(ArrayList<Entity> entities, Coordinate nextCoordinate) {
+        Entity entity = getEntityByCoordinates(entities, nextCoordinate);
 
         if (entity != null) {
             interactWithEntity(entity);
         }
 
-        if (!hasCollision(entities, newCoordinates) || isEdible(entity)) {
-            coordinates.changePosition(direction);
+        if (!hasCollision(entities, nextCoordinate) || isEdible(entity)) {
+            coordinates.changePosition(nextCoordinate);
 
             if (eat(entity)) {
                 entities.remove(entity);

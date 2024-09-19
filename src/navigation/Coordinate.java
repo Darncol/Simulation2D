@@ -5,6 +5,12 @@ import settings.IMapSize;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * The Coordinate class represents a position on a 2D grid map. It provides methods
+ * for retrieving coordinates, calculating new coordinates based on movement directions,
+ * and changing the current position either by specific directions or by another coordinate.
+ * The class implements the IMapSize interface for map size constraints.
+ */
 public class Coordinate implements IMapSize {
     private int row;
     private int column;

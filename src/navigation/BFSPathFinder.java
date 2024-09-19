@@ -5,6 +5,11 @@ import java.util.*;
 import entities.Entity;
 import settings.IMapSize;
 
+/**
+ * The BFSPathFinder class implements the IMapSize interface and is responsible
+ * for finding the shortest path between a starting coordinate and a list of goal
+ * coordinates using the Breadth-First Search (BFS) algorithm.
+ */
 public class BFSPathFinder implements IMapSize {
     private final boolean[][] visited;
     private final Coordinate[][] parent;
@@ -62,7 +67,7 @@ public class BFSPathFinder implements IMapSize {
     }
 
     private boolean[][] generateObstacleMap(Coordinate start, List<Coordinate> goals, ArrayList<Entity> entities) {
-        boolean[][] obstacles = new boolean[10][30];
+        boolean[][] obstacles = new boolean[MAP_HEIGHT][MAP_WIDTH];
 
         for (Entity entity : entities) {
             if (entity.coordinates == start || goals.contains(entity.coordinates)) {

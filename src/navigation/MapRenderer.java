@@ -1,6 +1,7 @@
 package navigation;
 
 import entities.Entity;
+import settings.IFreeSpace;
 import settings.IMapSize;
 import settings.IMapSymbols;
 
@@ -13,12 +14,12 @@ import java.util.Map;
  * map grid and places entities on this grid based on their coordinates. The map is then
  * rendered to the console.
  */
-public class MapRenderer implements IMapSize, IMapSymbols {
+public class MapRenderer implements IMapSize, IMapSymbols, IFreeSpace {
     private final Map<Coordinate, Entity> entityLocations = new HashMap<>();
 
     public void displayMap(ArrayList<Entity> entities) {
         entityLocations.clear();
-
+        renderFreeSpace();
         addEntites(entities);
         String[][] map = createMap();
         setEntitesOnMap(map);
@@ -64,6 +65,12 @@ public class MapRenderer implements IMapSize, IMapSymbols {
             }
 
             System.out.println(line.toString());
+        }
+    }
+
+    private void renderFreeSpace() {
+        for (int i = 0; i < ROWS; i++) {
+            System.out.println();
         }
     }
 }
