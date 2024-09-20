@@ -17,25 +17,25 @@ import java.util.Random;
  */
 public class StartUpInitializer implements IEntitiesCount, IMapSize, IEntityKind {
     private final EntityFactory entityFactory;
-    private final ArrayList<Entity> entities = new ArrayList<>();
     private final Random random = new Random();
-    private final ArrayList<Coordinate> availableCoordinates = new ArrayList<>();
 
     public StartUpInitializer() {
         this.entityFactory = new EntityFactory();
     }
 
     public ArrayList<Entity> populateMapWithEntities() {
-        generateAllAvailableCoordinates();
-        generateEntities(RABBITS_COUNT, Kind.RABBIT);
-        generateEntities(WOLFS_COUNT, Kind.WOLF);
-        generateEntities(STONES_COUNT, Kind.STONE);
-        generateEntities(GRASS_COUNT, Kind.GRASS);
-        availableCoordinates.clear();
+        ArrayList<Coordinate> availableCoordinates = generateAllAvailableCoordinates();
+        ArrayList<Entity> entities = new ArrayList<>();
+
+        generateEntities(RABBITS_COUNT, Kind.RABBIT, availableCoordinates, entities);
+        generateEntities(WOLFS_COUNT, Kind.WOLF, availableCoordinates, entities);
+        generateEntities(STONES_COUNT, Kind.STONE, availableCoordinates, entities);
+        generateEntities(GRASS_COUNT, Kind.GRASS, availableCoordinates, entities);
+
         return entities;
     }
 
-    private void generateEntities(int count, Kind kind) {
+    private void generateEntities(int count, Kind kind, ArrayList<Coordinate> availableCoordinates, ArrayList<Entity> entities) {
         for (int i = 0; i < count; i++) {
             Coordinate randomCoordinate = availableCoordinates.remove(random.nextInt(availableCoordinates.size()));
             Entity entity = entityFactory.Create(kind, randomCoordinate);
@@ -43,11 +43,15 @@ public class StartUpInitializer implements IEntitiesCount, IMapSize, IEntityKind
         }
     }
 
-    private void generateAllAvailableCoordinates() {
+    private ArrayList<Coordinate> generateAllAvailableCoordinates() {
+        ArrayList<Coordinate> availableCoordinates = new ArrayList<>();
+
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 availableCoordinates.add(new Coordinate(i, j));
             }
         }
+
+        return availableCoordinates;
     }
 }

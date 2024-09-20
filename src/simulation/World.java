@@ -16,6 +16,7 @@ public class World implements IGameSpeed {
     private ArrayList<Entity> entities = new ArrayList<>();
     private final MapRenderer gameMap = new MapRenderer();
     private final StartUpInitializer initializer = new StartUpInitializer();
+    private final Random random = new Random();
     private boolean isRunning = true;
 
     public void start() {
@@ -33,27 +34,28 @@ public class World implements IGameSpeed {
     }
 
     private void update() {
-        Random random = new Random();
-        int randomIndex = random.nextInt(entities.size());
-        Entity entity = entities.get(randomIndex);
+        ArrayList<Creature> creatures = getCreaturesList();
+        Creature creature = getRandomCreature(creatures);
+        handleCreatureMovement(creature);
+    }
 
-        switch (entity) {
+    private void handleCreatureMovement(Creature creature) {
+        switch (creature) {
             case Predator predator -> {
                 ArrayList<Coordinate> herbivores = collectHerbivores();
-                makeMove(predator, herbivores);
+                performCreatureMovement(predator, herbivores);
             }
 
             case Herbivore herbivore -> {
                 ArrayList<Coordinate> grass = collectGrass();
-                makeMove(herbivore, grass);
+                performCreatureMovement(herbivore, grass);
             }
 
-            default -> {
-            }
+            default -> System.out.println("unknown creature " + creature);
         }
     }
 
-    private void makeMove(Creature creature, ArrayList<Coordinate> goals) {
+    private void performCreatureMovement(Creature creature, ArrayList<Coordinate> goals) {
         BFSPathFinder pathFinder = new BFSPathFinder();
         List<Coordinate> path = pathFinder.findPath(creature.coordinates, goals, entities);
 
@@ -96,5 +98,17 @@ public class World implements IGameSpeed {
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private Creature getRandomCreature(ArrayList<Creature> creatures) {
+        int randomIndex = random.nextInt(creatures.size());
+        return creatures.get(randomIndex);
+    }
+
+    private ArrayList<Creature> getCreaturesList() {
+        return entities.stream()
+                .filter(e -> e instanceof Creature)
+                .map(e -> (Creature) e)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
